@@ -1,0 +1,158 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #0d0a1a;
+  color: #e8d5b7;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  letter-spacing: 0.1em;
+  color: #c9a84c;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #8c7a9e;
+  font-style: italic;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Draw button */
+.draw-btn {
+  display: block;
+  margin: 0 auto 2.5rem;
+  padding: 0.85rem 2.5rem;
+  background: #2a1a4a;
+  color: #c9a84c;
+  border: 1px solid #c9a84c;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.draw-btn:hover {
+  background: #3a2560;
+}
+
+.draw-btn:active {
+  transform: scale(0.97);
+}
+
+.draw-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Current card */
+.current-card {
+  background: #160e2e;
+  border: 1px solid #3d2f6b;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.card-arcana {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8c7a9e;
+  margin-bottom: 0.4rem;
+}
+
+.card-name {
+  font-size: 1.7rem;
+  color: #c9a84c;
+  margin-bottom: 1rem;
+}
+
+.card-divider {
+  width: 60px;
+  border: none;
+  border-top: 1px solid #3d2f6b;
+  margin: 0 auto 1rem;
+}
+
+.card-interpretation {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #d4c4a8;
+  font-style: italic;
+}
+
+/* Transcript */
+.transcript-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5e4e7a;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #1e1535;
+  padding-bottom: 0.5rem;
+}
+
+.reading-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #1a1030;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.reading-item:last-child {
+  border-bottom: none;
+}
+
+.reading-meta {
+  min-width: 90px;
+  font-size: 0.72rem;
+  color: #5e4e7a;
+  padding-top: 0.15rem;
+  line-height: 1.5;
+}
+
+.reading-content .reading-card-name {
+  font-size: 1rem;
+  color: #c9a84c;
+  margin-bottom: 0.2rem;
+}
+
+.reading-content .reading-interp {
+  font-size: 0.88rem;
+  color: #9a8a70;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.empty-state {
+  text-align: center;
+  color: #3d2f6b;
+  font-style: italic;
+  padding: 2rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
