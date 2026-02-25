@@ -1,0 +1,29 @@
+[00:00:00.380] Server  LOG     It looks like you're trying to use TypeScript but do not have the required package(s) installed.
+Installing dependencies
+
+If you are not trying to use TypeScript, please remove the tsconfig.json file from your package root (and any TypeScript files in your app and pages directories).
+
+[00:00:00.561] Server  LOG     
+[00:00:00.561] Server  LOG     Installing devDependencies (yarn):
+[00:00:00.562] Server  LOG     - typescript
+[00:00:00.562] Server  LOG     - @types/react
+[00:00:00.562] Server  LOG     - @types/node
+[00:00:00.562] Server  LOG     
+[00:01:09.897] Server  LOG     
+[00:01:09.904] Server  LOG     
+[00:01:09.904] Server  LOG       We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+[00:01:09.904] Server  LOG       The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+[00:01:09.905] Server  LOG       	- include was updated to add '.next/types/**/*.ts'
+[00:01:09.905] Server  LOG       	- include was updated to add '.next/dev/types/**/*.ts'
+[00:01:09.905] Server  LOG       	- plugins was updated to add { name: 'next' }
+[00:01:09.905] Server  LOG     
+[00:01:09.905] Server  LOG       The following mandatory changes were made to your tsconfig.json:
+
+[00:01:09.905] Server  LOG       	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+[00:01:09.905] Server  LOG     
+[00:01:10.000] Server  LOG     ✓ Ready in 69.9s
+[00:01:11.339] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:35.743] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:02.139] Server  LOG     ✓ Compiled in 15ms
+[00:03:02.464] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
