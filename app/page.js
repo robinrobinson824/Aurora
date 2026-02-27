@@ -49,6 +49,15 @@ export default function Home() {
       {currentCard && (
         <div className="current-card">
           <p className="card-arcana">{currentCard.arcana} Arcana</p>
+            
+            
+          <img
+          //src="/images/Wheel-of-Fortune.png"
+          
+            src={`/images/${currentCard.card_name.replace(/\s/g, "-")}.png`}
+            alt={currentCard.card_name}
+            className="card-image"
+          />
           <h2 className="card-name">{currentCard.card_name}</h2>
           <hr className="card-divider" />
           <p className="card-interpretation">{currentCard.interpretation}</p>
