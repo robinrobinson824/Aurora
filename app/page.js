@@ -26,12 +26,14 @@ export default function Home() {
   async function drawCard() {
     if (loading) return;
     setLoading(true);
+    const q = question.trim();
     try {
       const res = await fetch('/api/draw', { method: 'POST' });
       if (!res.ok) throw new Error();
       const card = await res.json();
-      setCurrentCard({ ...card, question: question.trim() });
-      setReadings(prev => [card, ...prev.slice(0, 19)]);
+      setCurrentCard({ ...card, question: q });
+      setReadings(prev => [{ ...card, question: q }, ...prev.slice(0, 19)]);
+      setQuestion('');
     } catch {
       alert('Something went wrong — the cards are silent.');
     } finally {
@@ -85,11 +87,11 @@ export default function Home() {
       {readings.length === 0 ? (
         <p className="empty-state">No readings yet — draw your first card above.</p>
       ) : (
-        readings.map(r => (
-          <div key={r.id} className="reading-item">
+        readings.map((r, i) => (
+          <div key={r.id ?? i} className="reading-item">
             <div className="reading-meta">{formatDate(r.drawn_at)}</div>
             <div className="reading-content">
-              <p className="reading-card-name">{r.card_name}</p>
+              <p className="reading-card-name">{r.question || r.card_name}</p>
               <p className="reading-interp">{r.interpretation}</p>
             </div>
           </div>
