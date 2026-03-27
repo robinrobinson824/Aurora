@@ -11,6 +11,7 @@ services:
       - /usr/src/app/node_modules
     environment:
       - DATABASE_URL=postgresql://tarot:tarotpass@postgres:5432/tarotdb
+      - GEMINI_API_KEY=AIzaSyAV21fBwGqIKrY8jDwskbT667g3gj2Ka0g
     depends_on:
       postgres:
         condition: service_healthy
