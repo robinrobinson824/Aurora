@@ -24,7 +24,9 @@ body {
   background-color: var(--deep);
   color: var(--text);
   overflow: hidden;
+  scrollbar-width: none;
 }
+body::-webkit-scrollbar { display: none; }
 
 /* cosmic nebula */
 body::before {
@@ -249,8 +251,8 @@ h1 {
   gap: 2.5rem;
   scroll-behavior: smooth;
 }
-.chat-log::-webkit-scrollbar { width: 4px; }
-.chat-log::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+.chat-log::-webkit-scrollbar { display: none; }
+.chat-log { -ms-overflow-style: none; scrollbar-width: none; }
 
 .chat-empty-state {
   display: flex;
@@ -448,3 +450,555 @@ h1 {
   margin-bottom: 0.5rem;
   align-self: center;
 }
+/* ─── Auth Screen ────────────────────────────────────────────────────────────── */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1rem;
+}
+
+.auth-modal {
+  position: relative;
+  z-index: 1;
+  background: rgba(8, 5, 22, 0.92);
+  border: 1px solid var(--border-mid);
+  border-radius: 16px;
+  padding: 2.8rem 2.2rem 2.2rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(80, 40, 160, 0.25), 0 20px 50px rgba(0,0,0,0.7);
+  animation: fadeIn 0.4s ease;
+  backdrop-filter: blur(20px);
+}
+
+.auth-glyph {
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+  text-shadow: 0 0 20px rgba(201,168,76,0.5);
+}
+
+.auth-heading {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.35rem;
+  text-shadow: 0 0 20px rgba(201,168,76,0.3);
+}
+
+.auth-sub {
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1.8rem;
+}
+
+.auth-tabs {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.6rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.55rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.auth-tab.active { background: rgba(201,168,76,0.1); color: var(--gold); }
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.auth-field { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.auth-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.auth-input {
+  background: rgba(4, 2, 14, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  color: var(--text);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.auth-input:focus { border-color: var(--border-mid); }
+.auth-input::placeholder { color: var(--text-muted); font-style: italic; }
+
+.auth-error {
+  color: #c06080;
+  font-size: 0.83rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.auth-submit {
+  margin-top: 0.4rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #3a2060 0%, #2a1a4a 100%);
+  color: var(--gold);
+  border: 1.5px solid var(--gold-dim);
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 0 12px rgba(201,168,76,0.15);
+}
+.auth-submit:hover { background: linear-gradient(135deg, #4a2a80 0%, #3a2060 100%); box-shadow: 0 0 22px rgba(201,168,76,0.35); }
+.auth-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── User pill & dropdown ───────────────────────────────────────────────────── */
+.user-menu-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--border-mid);
+  border-radius: 20px;
+  padding: 0.3rem 0.65rem 0.3rem 0.35rem;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.user-pill:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+.user-pill-avatar {
+  width: 22px; height: 22px;
+  background: rgba(201,168,76,0.12);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem;
+  color: var(--gold);
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.user-pill-chevron { font-size: 0.5rem; color: var(--text-muted); }
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(8, 5, 22, 0.97);
+  border: 1px solid var(--border-mid);
+  border-radius: 10px;
+  padding: 1rem;
+  min-width: 180px;
+  z-index: 100;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  animation: fadeIn 0.15s ease;
+  backdrop-filter: blur(20px);
+  text-align: left;
+}
+
+.dropdown-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-stats {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.dropdown-hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.75rem 0;
+}
+
+.dropdown-logout {
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(160, 60, 80, 0.4);
+  border-radius: 6px;
+  color: #a06070;
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.dropdown-logout:hover { background: rgba(160, 60, 80, 0.15); color: #d08090; }
+
+/* ─── Delete session button ─── */
+.history-item {
+  cursor: pointer;
+}
+.history-right {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+.history-delete {
+  background: transparent;
+  border: none;
+  color: transparent;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.history-item:hover .history-delete {
+  color: var(--text-muted);
+}
+.history-delete:hover {
+  color: #d08090 !important;
+  background: rgba(160, 60, 80, 0.15);
+}
+
+/* ─── Card Deck Overlay ──────────────────────────────────────────────────────── */
+.deck-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 0 0.5rem;
+  width: 100%;
+}
+
+.deck-prompt {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  animation: fadeIn 0.5s ease;
+}
+
+.deck-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 180px;
+  position: relative;
+  width: 100%;
+}
+
+/* each card sits at its offset, fanned out */
+.deck-card {
+  position: absolute;
+  width: 90px;
+  height: 150px;
+  transform: translateX(var(--dx)) rotate(var(--dr));
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.deck-card-hover {
+  transform: translateX(var(--dx)) rotate(var(--dr)) translateY(-28px) scale(1.08) !important;
+  z-index: 10;
+}
+
+.deck-card-picked {
+  transform: translateX(0) rotate(0deg) translateY(-120px) scale(1.2) !important;
+  z-index: 20;
+  animation: cardFlip 0.7s ease forwards;
+}
+
+.deck-card-fade {
+  opacity: 0.15;
+  transform: translateX(var(--dx)) rotate(var(--dr)) translateY(10px) scale(0.95) !important;
+}
+
+.deck-card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.2);
+}
+
+.deck-card-back {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 40%, #2a1a5a 0%, #0d0820 100%);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative pattern on card back */
+.deck-card-back::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 6px;
+}
+
+.deck-card-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0, rgba(201,168,76,0.03) 1px, transparent 0, transparent 50%);
+  background-size: 12px 12px;
+}
+
+.deck-card-symbol {
+  font-size: 1.4rem;
+  color: rgba(201,168,76,0.4);
+  position: relative;
+  z-index: 1;
+  animation: deckPulse 2s ease-in-out infinite;
+}
+
+/* Card reveal animation in chat */
+.card-reveal-anim {
+  animation: cardReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cardFlip {
+  0%   { transform: translateX(0) rotate(0deg) translateY(-120px) scale(1.2); }
+  50%  { transform: translateX(0) rotate(0deg) translateY(-150px) scale(1.25) rotateY(90deg); }
+  100% { transform: translateX(0) rotate(0deg) translateY(-120px) scale(1.2) rotateY(0deg); opacity: 0; }
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes deckPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+/* ─── Infinite Deck ──────────────────────────────────────────────────────────── */
+.deck-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 3rem 0 2.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.deck-hint {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.deck-stage {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: visible;
+  cursor: none;
+  background: transparent;
+}
+
+.deck-cards-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* single card */
+.icard {
+  position: absolute;
+  width: 100px;
+  height: 155px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, filter 0.25s ease;
+  will-change: transform;
+  border-radius: 11px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.icard-hovered {
+  z-index: 10;
+  filter: drop-shadow(0 0 18px rgba(201,168,76,0.7));
+}
+
+.icard-fading {
+  opacity: 0.18;
+  filter: none;
+}
+
+.icard-picked {
+  z-index: 20;
+  animation: icardFadeOut 0.3s ease forwards;
+}
+
+.icard-done {
+  opacity: 0 !important;
+}
+
+.icard-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 11px;
+  overflow: hidden;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.65), 0 0 0 1px rgba(201,168,76,0.18);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.icard-hovered .icard-face {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.8), 0 0 0 1.5px rgba(201,168,76,0.55);
+  transform: translateY(-22px) scale(1.07);
+}
+
+.icard-back {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 65% 75% at 50% 40%, #241554 0%, #0a0618 100%);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.icard-back::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 7px;
+  pointer-events: none;
+}
+
+.icard-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(201,168,76,0.025) 0,
+    rgba(201,168,76,0.025) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+.icard-symbol {
+  font-size: 1.3rem;
+  color: rgba(201,168,76,0.35);
+  position: relative;
+  z-index: 1;
+  animation: deckPulse 2.4s ease-in-out infinite;
+}
+
+/* Gradient fade edges */
+.deck-fade-left,
+.deck-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.deck-fade-left {
+  left: 0;
+  background: none;
+}
+
+.deck-fade-right {
+  right: 0;
+  background: none;
+}
+
+@keyframes icardFadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Card reveal in chat */
+.card-reveal-anim {
+  animation: cardReveal 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(24px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes deckPulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+/* clips horizontal overflow but allows vertical for flip animation */
+.deck-clip {
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  scrollbar-width: none;
+}
+.deck-clip::-webkit-scrollbar { display: none; }
