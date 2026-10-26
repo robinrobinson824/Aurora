@@ -91,3 +91,13 @@ export const deck = [
 export function drawRandom() {
   return deck[Math.floor(Math.random() * deck.length)];
 }
+
+// n distinct random cards (Fisher–Yates shuffle)
+export function drawMany(n) {
+  const a = [...deck];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}

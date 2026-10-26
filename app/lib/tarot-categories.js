@@ -1,18 +1,18 @@
-// Detects the category of a question based on keyword patterns (Russian + English)
+// Detects the category of a question based on keyword patterns (Ukrainian + Russian + English)
 // Returns one of: 'love' | 'money' | 'health' | 'work' | 'relations' |
 //                 'future' | 'choice' | 'psychology' | 'general'
 export function detectCategory(question) {
   const q = question.toLowerCase();
 
   const patterns = {
-    love:       /люб|влюб|роман|чувств|сердц|парень|девушк|муж|жена|свидан|love|romantic|heart|crush|dating|flirt/,
-    money:      /деньг|финанс|доход|зарплат|богатств|кредит|долг|инвестиц|бизнес|прибыл|money|finance|income|salary|wealth|debt|invest/,
-    health:     /здоровь|болезн|лечени|врач|самочувств|энерги|усталост|health|illness|doctor|healing|body|energy|tired/,
-    work:       /работ|карьер|проект|должност|коллег|начальник|уволь|найм|профессi|job|work|career|project|boss|fired|hired|office/,
-    relations:  /отношени|друг|семь|родствен|конфликт|общени|доверi|relation|family|friend|trust|conflict|communication/,
-    future:     /будущ|будет|произойд|ожида|скоро|судьб|предстоит|future|will happen|what's next|destiny|upcoming|soon|outcome/,
-    choice:     /выбрать|выбор|решить|решение|стоит ли|лучше|или|дилемм|choose|choice|decide|decision|should i|better|dilemma|which/,
-    psychology: /чувствую|эмоц|страх|тревог|душ|внутр|психолог|подсознан|feel|emotion|fear|anxiety|soul|inner|mind|subconscious|heal|trauma/,
+    love:       /люб|влюб|роман|чувств|сердц|парень|девушк|муж|жена|свидан|кохан|закоха|стосунк.*партнер|побачен|серце|хлопець|дівчин|чолові|дружин|love|romantic|heart|crush|dating|flirt/,
+    money:      /деньг|финанс|доход|зарплат|богатств|кредит|долг|инвестиц|бизнес|прибыл|гроші|грош|фінанс|дохід|заробіт|багатств|кредит|борг|інвестиц|прибут|money|finance|income|salary|wealth|debt|invest/,
+    health:     /здоровь|болезн|лечени|врач|самочувств|энерги|усталост|здоров|хвороб|лікуван|лікар|самопочутт|енергі|втом|health|illness|doctor|healing|body|energy|tired/,
+    work:       /работ|карьер|проект|должност|коллег|начальник|уволь|найм|профессi|job|робот|кар.єр|проєкт|посад|колег|начальник|звільн|найм|професі|work|career|project|boss|fired|hired|office/,
+    relations:  /отношени|друг|семь|родствен|конфликт|общени|доверi|стосунк|друз|сім.[яї]|родин|конфлікт|спілкуван|довір|relation|family|friend|trust|conflict|communication/,
+    future:     /будущ|будет|произойд|ожида|скоро|судьб|предстоит|майбут|станеться|чекає|незабаром|доля|судьб|future|will happen|what's next|destiny|upcoming|soon|outcome/,
+    choice:     /выбрать|выбор|решить|решение|стоит ли|лучше|или|дилемм|choose|обрати|вибір|вирішити|рішенн|чи варто|чи слід|краще|дилем|choice|decide|decision|should i|better|dilemma|which/,
+    psychology: /чувствую|эмоц|страх|тревог|душ|внутр|психолог|подсознан|почуваю|емоці|страх|тривог|душ|внутрішн|психолог|підсвідом|feel|emotion|fear|anxiety|soul|inner|mind|subconscious|heal|trauma/,
   };
 
   for (const [cat, re] of Object.entries(patterns)) {
